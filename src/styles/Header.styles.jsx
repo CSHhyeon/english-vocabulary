@@ -15,6 +15,7 @@ export const TabWrapper = styled.div`
   padding: 4px;
   display: flex;
   align-items: center;
+  border-radius: 6px;
 `;
 
 export const TabButton= styled.button`
@@ -22,7 +23,7 @@ export const TabButton= styled.button`
   height: 32px;
   border: none;
   padding: 6px 12px;
-  border-radius: 2px;
+  border-radius: 4px;
 
   background-color: ${({ $active }) => ($active ? '#FFFFFF' : 'transparent')};
   color: ${({ $active }) => ($active ? '#0A0A0A' : '#737373')};
