@@ -2,9 +2,11 @@
 import styled from 'styled-components';
 import { use, useEffect, useState } from 'react'
 import { WordMeaningAndDefinition } from './WordDefinition';
+import { useVocaStore } from '../store/vocaStore';
 
 export function Word({ word }) {  
   console.log(word);
+  const { myVoca } = useVocaStore();
 
   return (
     <WordWrapper>
