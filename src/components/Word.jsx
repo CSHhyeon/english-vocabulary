@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { WordMeaningAndDefinition } from './WordDefinition';
 import { VolumeButton } from './VolumeButton.jsx';
 import { useVocaStore } from '../store/vocaStore';
+import { usePageStore } from '../store/pageStore.jsx';
 import {
   WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton
 } from '../styles/Word.styles.jsx'
 
 export function Word({ word }) {  
+  const { changePage } = usePageStore();
   const { myVoca, addWord } = useVocaStore();
 
   const addToVocabulary = async (word)=>{
@@ -18,6 +20,9 @@ export function Word({ word }) {
 
     // 단어 추가
     addWord({...word, addedTime});
+
+    // 단어장으로 페이지 변경
+    changePage();
   };
 
   const playSound = (url)=>{

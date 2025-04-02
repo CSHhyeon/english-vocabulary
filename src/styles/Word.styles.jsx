@@ -54,6 +54,13 @@ export const SpeechWrapper = styled.div`
   width: fit-content;
 `;
 
+export const ExampleText = styled.p`
+  color: #737373;
+  font-size: 14px;
+  font-style: italic;
+  margin: 4px 0px 0px;
+`;
+
 export const ActionButton = styled.button`
   color: #FAFAFA;
   background-color: ${props => props.$danger ? '#EF4444' : '#171717'};

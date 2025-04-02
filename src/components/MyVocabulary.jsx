@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { WordNameWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton, SpeechWrapper } from '../styles/Word.styles.jsx';
+import { WordNameWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton, SpeechWrapper, ExampleText } from '../styles/Word.styles.jsx';
 import { VolumeButton } from './VolumeButton.jsx';
 import { useVocaStore } from '../store/vocaStore';
 
@@ -42,13 +42,16 @@ function VocaList() {
                   <WordNoun>{ word.phonetic }</WordNoun>
                 </WordNameAndNoun>
                 <ActionButton $danger onClick={ ()=>removeWord(word.word) }>
-                  <i class="fas fa-trash"></i>
+                  <i className="fas fa-trash"></i>
                 </ActionButton>
               </WordNameWrapper>
 
               <WordDefinitionWrapper>
                 <SpeechWrapper>{ word.meanings[0].partOfSpeech }</SpeechWrapper>
-                <DefinitionWrapper>{ word.meanings[0].definitions[0].definition }</DefinitionWrapper>
+                <DefinitionWrapper>
+                  { word.meanings[0].definitions[0].definition }
+                  { word.meanings[0].definitions[0].example && <ExampleText>"{ word.meanings[0].definitions[0].example }"</ExampleText> }
+                </DefinitionWrapper>
               </WordDefinitionWrapper>
 
               <AddedTimeWrapper>Added: { word.addedTime }</AddedTimeWrapper>
@@ -83,7 +86,7 @@ const VocaWrapper = styled.div`
   border-radius: 4px;
 `;
 
-const DefinitionWrapper = styled.p`
+const DefinitionWrapper = styled.div`
   font-size: 16px;
   margin: 4px 0px 0px;
 `;

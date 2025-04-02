@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SpeechWrapper } from '../styles/Word.styles';
+import { SpeechWrapper, ExampleText } from '../styles/Word.styles';
 
 export function WordMeaningAndDefinition({ meaning, i }) {
   return (
@@ -28,11 +28,4 @@ const DefinitionWrapper = styled.ol`
   li {
     margin-top: 8px;
   }
-`;
-
-const ExampleText = styled.p`
-  color: #737373;
-  font-size: 14px;
-  font-style: italic;
-  margin: 4px 0px 0px;
 `;
