@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Word } from './Word';
 
 export function SearchWords() {
@@ -27,9 +27,9 @@ export function SearchWords() {
   
   return(
     <>
-      <SearchWrapper>
+      <SearchWrapper onSubmit={(e)=>{ e.preventDefault(); search(inputWord); }}>
         <SearchInput type="text" placeholder="Enter a word to search..." onChange={ (e)=>{ setInputWord(e.target.value); }}></SearchInput>
-        <SearchButton onClick={() => search(inputWord)} disabled={loading}>
+        <SearchButton type="submit" disabled={loading}>
         { loading ? 'Searching...Search' : (
           <>
             <i className="fas fa-search white-icon"></i>
@@ -45,7 +45,7 @@ export function SearchWords() {
   );
 }
 
-const SearchWrapper = styled.div`
+const SearchWrapper = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
