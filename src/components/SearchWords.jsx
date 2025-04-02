@@ -4,31 +4,55 @@ import { Word } from './Word';
 
 export function SearchWords() {
 
-  const [inputWord, setInputWord] = useState('');
+  const [searchTrigger, setSearchTrigger] = useState('');
   const [loading, setLoading] = useState(false);
-  const [word, setWord] = useState('');
-  const [show, setShow] = useState(false);
+  const [inputWord, setInputWord] = useState(()=>{
+    const saved = localStorage.getItem('inputWord');
+    return saved ? JSON.parse(saved) : '';
+  });
+  const [searchedWord, setSearchedWord] = useState(()=>{
+    const saved = localStorage.getItem('searchedWord');
+    return saved ? JSON.parse(saved) : '';
+  });
 
-  const search = async (word) => {
-    if (!word.trim()) return;
+  // save to localStorage
+  useEffect(()=>{
+    localStorage.setItem('inputWord', JSON.stringify(inputWord));
+  }, [inputWord]);
 
-    setLoading(true);
-    try {
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-      const result = await response.json();
-      setWord(result[0]);
-      setShow(true);
-    } catch (error) {
-      console.error(`잘못된 요청입니다. ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
+  useEffect(()=>{
+    localStorage.setItem('searchedWord', JSON.stringify(searchedWord));
+  }, [searchedWord]);
+
+  // 단어 검색(API 호출)
+  useEffect(()=>{
+    if (!searchTrigger.trim()) return;
+
+    const searchWord = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchTrigger}`);
+        const result = await response.json();
+        setSearchedWord(result[0]);
+      } catch (error) {
+        console.error(`잘못된 요청입니다. ${error.message}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    searchWord();
+  }, [searchTrigger]);
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    setSearchTrigger(inputWord);
   };
   
   return(
     <>
-      <SearchWrapper onSubmit={(e)=>{ e.preventDefault(); search(inputWord); }}>
-        <SearchInput type="text" placeholder="Enter a word to search..." onChange={ (e)=>{ setInputWord(e.target.value); }}></SearchInput>
+      <SearchWrapper onSubmit={handleSubmit}>
+        <SearchInput type="text" placeholder="Enter a word to search..." onChange={ (e)=>{ setInputWord(e.target.value); }} value={inputWord}></SearchInput>
         <SearchButton type="submit" disabled={loading}>
         { loading ? 'Searching...Search' : (
           <>
@@ -39,7 +63,7 @@ export function SearchWords() {
       </SearchWrapper>
 
       {
-        show && <Word word={word}/>
+        searchedWord && <Word word={searchedWord}/>
       }
     </>
   );
