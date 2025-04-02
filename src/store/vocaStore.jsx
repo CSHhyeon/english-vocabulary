@@ -9,15 +9,11 @@ export const useVocaStore = create(
 
       // 단어 추가
       addWord: (word)=>
-        set((state)=>({
-          myVoca: [word, ...state.myVoca]
-        })),
+        set((state)=>({ myVoca: [word, ...state.myVoca] })),
 
       // 단어 삭제
       removeWord: (word)=>
-        set((state)=>({
-          myVoca: state.myVoca.filter((voca)=>voca.word !== word)
-        })),
+        set((state)=>({ myVoca: state.myVoca.filter((voca)=>voca.word !== word) })),
 
       // 단어장 대체
       setVocaList: (newVoca)=>

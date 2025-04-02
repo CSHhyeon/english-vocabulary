@@ -6,6 +6,7 @@ export const WordWrapper = styled.div`
   width: 100%;
   margin: 24px 0;
   border: 1px solid #E5E5E5;
+  border-radius: 6px;
 `;
 
 export const WordNameWrapper = styled.div`
