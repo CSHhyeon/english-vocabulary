@@ -3,10 +3,22 @@ import styled from 'styled-components';
 import { use, useEffect, useState } from 'react'
 import { WordMeaningAndDefinition } from './WordDefinition';
 import { useVocaStore } from '../store/vocaStore';
+import {
+  WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton
+} from '../styles/Word.styles.jsx'
 
 export function Word({ word }) {  
-  console.log(word);
-  const { myVoca } = useVocaStore();
+  const { myVoca, addWord } = useVocaStore();
+
+  const addToVocabulary = async (word)=>{
+    if(myVoca.some(voca => voca.word === word.word)) return alert('이미 저장된 단어입니다.');
+
+    const today = new Date();
+    const addedTime = `${today.getFullYear()}. ${String(today.getMonth() + 1).padStart(2, '0')}. ${String(today.getDate()).padStart(2, '0')}`;
+
+    // 단어 추가
+    addWord({...word, addedTime});
+  };
 
   return (
     <WordWrapper>
@@ -16,7 +28,7 @@ export function Word({ word }) {
           <WordName>{ word.word }</WordName>
           <WordNoun>{ word.phonetic }</WordNoun>
         </WordNameAndNoun>
-        <AddToVocaButton>+  Add to Vocabulary</AddToVocaButton>
+        <ActionButton onClick={()=>{ addToVocabulary(word) }}>+  Add to Vocabulary</ActionButton>
       </WordNameWrapper>
 
       {/* 단어 품사별 뜻 */}
@@ -33,15 +45,6 @@ export function Word({ word }) {
   );
 }
 
-const WordWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-  margin: 24px 0px 0px;
-  border: 1px solid #E5E5E5;
-`;
-
 const WordNameWrapper = styled.div`
   height: 100px;
   padding: 24px;
@@ -49,32 +52,4 @@ const WordNameWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`;
-
-const WordNameAndNoun = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const WordName = styled.div`
-  color: #0A0A0A;
-  font-size: 24px;
-  font-weight: 600;
-`;
-
-const WordNoun = styled.div`
-  color: #737373
-  font-size: 14px;
-`;
-
-const AddToVocaButton = styled.button`
-  color: #FAFAFA;
-  background-color: #171717;
-  padding: 8px 16px;
-  height: 40px;
-`;
-
-// 단어 정의
-const WordDefinitionWrapper = styled.div`
-  padding: 0px 24px 24px;
 `;

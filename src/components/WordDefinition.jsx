@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { SpeechWrapper } from '../styles/Word.styles';
 
 export function WordMeaningAndDefinition({ meaning, i }) {
   return (
@@ -18,23 +19,6 @@ export function WordMeaningAndDefinition({ meaning, i }) {
 
 const MeaningBlock = styled.div`
   margin-top: ${(props) => (props.$isNotFirst ? '16px' : '0px')};
-`;
-
-const SpeechWrapper = styled.div`
-  color: #0A0A0A;
-  margin: 0px 0px 8px;
-  padding: 2px 10px;
-
-  font-size: 12px;
-  font-weight: 600;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border: 1px solid #e5e7eb;
-  border-radius: 9999px;
-  width: fit-content;
 `;
 
 const DefinitionWrapper = styled.ol`
