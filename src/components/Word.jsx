@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
-import { use, useEffect, useState } from 'react'
 import { WordMeaningAndDefinition } from './WordDefinition';
+import { VolumeButton } from './VolumeButton.jsx';
 import { useVocaStore } from '../store/vocaStore';
 import {
   WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton
@@ -20,15 +20,27 @@ export function Word({ word }) {
     addWord({...word, addedTime});
   };
 
+  const playSound = (url)=>{
+    new Audio(url).play();
+  };
+
   return (
     <WordWrapper>
       {/* 단어 이름, 발음 기호 */}
       <WordNameWrapper>
         <WordNameAndNoun>
-          <WordName>{ word.word }</WordName>
+          <WordName>
+            <span>{ word.word }</span>
+            { word.phonetics[0]?.audio && (
+              <VolumeButton onClick={() => playSound(word.phonetics[0].audio)} />
+            )}
+          </WordName>
           <WordNoun>{ word.phonetic }</WordNoun>
         </WordNameAndNoun>
-        <ActionButton onClick={()=>{ addToVocabulary(word) }}>+  Add to Vocabulary</ActionButton>
+        <ActionButton onClick={()=>{ addToVocabulary(word) }}>
+          <i className="fas fa-plus white-icon"></i>
+          <span>Add to Vocabulary</span>
+        </ActionButton>
       </WordNameWrapper>
 
       {/* 단어 품사별 뜻 */}

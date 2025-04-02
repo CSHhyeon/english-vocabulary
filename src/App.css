@@ -14,3 +14,9 @@ html, body {
   justify-content: center;
   align-items: flex-start;
 }
+
+.white-icon {
+  color: #FAFAFA;
+  margin-right: 15px;
+  cursor: pointer;
+}

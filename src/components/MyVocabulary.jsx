@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { WordNameWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton, SpeechWrapper } from '../styles/Word.styles.jsx';
+import { VolumeButton } from './VolumeButton.jsx';
 import { useVocaStore } from '../store/vocaStore';
 
 export function MyVocabulary() {
@@ -20,6 +21,10 @@ function NoVoca() {
 function VocaList() {
   const { myVoca, removeWord } = useVocaStore();
 
+  const playSound = (url)=>{
+    new Audio(url).play();
+  };
+
   return(
     <VocaListWrapper>
       {
@@ -28,10 +33,17 @@ function VocaList() {
             <VocaWrapper key={`${word.word}-${i}`}>
               <WordNameWrapper>
                 <WordNameAndNoun>
-                  <WordName>{ word.word }</WordName>
+                  <WordName>
+                  <span>{ word.word }</span>
+                  { word.phonetics[0]?.audio && (
+                    <VolumeButton onClick={() => playSound(word.phonetics[0].audio)} />
+                  )}
+                  </WordName>
                   <WordNoun>{ word.phonetic }</WordNoun>
                 </WordNameAndNoun>
-                <ActionButton $danger onClick={ ()=>removeWord(word.word) }>Delete</ActionButton>
+                <ActionButton $danger onClick={ ()=>removeWord(word.word) }>
+                  <i class="fas fa-trash"></i>
+                </ActionButton>
               </WordNameWrapper>
 
               <WordDefinitionWrapper>

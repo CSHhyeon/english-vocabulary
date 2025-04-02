@@ -30,7 +30,11 @@ export function SearchWords() {
       <SearchWrapper>
         <SearchInput type="text" placeholder="Enter a word to search..." onChange={ (e)=>{ setInputWord(e.target.value); }}></SearchInput>
         <SearchButton onClick={() => search(inputWord)} disabled={loading}>
-        { loading ? 'Searching...Search' : 'Search' }
+        { loading ? 'Searching...Search' : (
+          <>
+            <i className="fas fa-search white-icon"></i>
+            <span>Search</span>
+          </>) }
         </SearchButton>
       </SearchWrapper>
 

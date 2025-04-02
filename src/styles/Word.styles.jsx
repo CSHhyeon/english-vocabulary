@@ -20,6 +20,9 @@ export const WordNameAndNoun = styled.div`
 `;
 
 export const WordName = styled.div`
+  display: flex;
+  align-items: center;
+
   font-size: 24px;
   font-weight: 600;
   color: #0A0A0A;
