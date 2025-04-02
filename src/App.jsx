@@ -3,7 +3,7 @@ import { MyVocabulary } from './components/MyVocabulary'
 import { SearchWords } from './components/SearchWords'
 import { useVocaStore } from './store/vocaStore'
 import { usePageStore } from './store/pageStore'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 
 function App() {
