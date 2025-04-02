@@ -26,16 +26,22 @@ export function SearchWords() {
 
   // 단어 검색(API 호출)
   useEffect(()=>{
-    if (!searchTrigger.trim()) return;
+    if (!inputWord.trim()) return;
 
     const searchWord = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchTrigger}`);
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputWord}`);
+
+        // 404 에러 핸들링
+        if (!response.ok) {
+          throw new Error('Word not found. Please check your spelling and try again.');
+        }
+
         const result = await response.json();
         setSearchedWord(result[0]);
       } catch (error) {
-        console.error(`잘못된 요청입니다. ${error.message}`);
+        alert(`${error.message}`);
       } finally {
         setLoading(false);
       }
@@ -46,7 +52,7 @@ export function SearchWords() {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    setSearchTrigger(inputWord);
+    setSearchTrigger(Date.now());
   };
   
   return(
