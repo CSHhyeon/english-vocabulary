@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const TitleWrapper = styled.h1`
+  color: #0A0A0A;
   font-size: 1.875rem;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 2rem;
+  margin: 0px 0px 32px;
 `;
 
 export const TabWrapper = styled.div`

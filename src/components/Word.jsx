@@ -1,14 +1,14 @@
 
 import styled from 'styled-components';
 import { use, useEffect, useState } from 'react'
+import { WordMeaningAndDefinition } from './WordDefinition';
 
-export function Word({ word }) {
-  console.log('-------------')
+export function Word({ word }) {  
   console.log(word);
-  console.log(word.meanings);
 
   return (
     <WordWrapper>
+      {/* 단어 이름, 발음 기호 */}
       <WordNameWrapper>
         <WordNameAndNoun>
           <WordName>{ word.word }</WordName>
@@ -17,22 +17,16 @@ export function Word({ word }) {
         <AddToVocaButton>+  Add to Vocabulary</AddToVocaButton>
       </WordNameWrapper>
 
-      <WordDefinition> 
+      {/* 단어 품사별 뜻 */}
+      <WordDefinitionWrapper> 
         {
           word.meanings.map(function(meaning, i) {
             return (
-              <>
-                <div>{ meaning.partOfSpeech }</div>
-                {
-                  meaning.definitions.map(function(def, i) {
-                    <div>`${i}. ${def}`</div>
-                  })
-                }
-              </>
+              <WordMeaningAndDefinition meaning={meaning} i={i} key={i}/>
             );
           })
         }
-      </WordDefinition>
+      </WordDefinitionWrapper>
     </WordWrapper>
   );
 }
@@ -79,6 +73,6 @@ const AddToVocaButton = styled.button`
 `;
 
 // 단어 정의
-const WordDefinition = styled.div`
+const WordDefinitionWrapper = styled.div`
   padding: 0px 24px 24px;
 `;

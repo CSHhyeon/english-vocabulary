@@ -3,6 +3,7 @@
   max-width: 736px;
   min-height: 100vh;
   padding: 2rem;
+  font-family: 'Inter', 'Inter Fallback';
 }
 
 html, body {
