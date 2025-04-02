@@ -4,7 +4,7 @@ import { Word } from './Word';
 
 export function SearchWords() {
 
-  const [searchTrigger, setSearchTrigger] = useState('');
+  const [searchTrigger, setSearchTrigger] = useState(null);
   const [loading, setLoading] = useState(false);
   const [inputWord, setInputWord] = useState(()=>{
     const saved = localStorage.getItem('inputWord');
@@ -26,7 +26,7 @@ export function SearchWords() {
 
   // 단어 검색(API 호출)
   useEffect(()=>{
-    if (!inputWord.trim()) return;
+    if (searchTrigger === null || !inputWord.trim()) return;
 
     const searchWord = async () => {
       setLoading(true);
