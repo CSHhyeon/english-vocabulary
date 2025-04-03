@@ -4,7 +4,6 @@ import { Word } from './Word';
 
 export function SearchWords() {
 
-  const [searchTrigger, setSearchTrigger] = useState(null);
   const [loading, setLoading] = useState(false);
   const [inputWord, setInputWord] = useState(()=>{
     const saved = localStorage.getItem('inputWord');
@@ -25,34 +24,28 @@ export function SearchWords() {
   }, [searchedWord]);
 
   // 단어 검색(API 호출)
-  useEffect(()=>{
-    if (searchTrigger === null || !inputWord.trim()) return;
+  const searchWord = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputWord}`);
 
-    const searchWord = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputWord}`);
-
-        // 404 에러 핸들링
-        if (!response.ok) {
-          throw new Error('Word not found. Please check your spelling and try again.');
-        }
-
-        const result = await response.json();
-        setSearchedWord(result[0]);
-      } catch (error) {
-        alert(`${error.message}`);
-      } finally {
-        setLoading(false);
+      // 404 에러 핸들링
+      if (!response.ok) {
+        throw new Error('Word not found. Please check your spelling and try again.');
       }
-    };
 
-    searchWord();
-  }, [searchTrigger]);
+      const result = await response.json();
+      setSearchedWord(result[0]);
+    } catch (error) {
+      alert(`${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    setSearchTrigger(Date.now());
+    searchWord();
   };
   
   return(
