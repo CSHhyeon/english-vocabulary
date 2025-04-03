@@ -1,12 +1,10 @@
 
 import styled from 'styled-components';
+import { WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton } from '../styles/Word.styles.jsx'
 import { WordMeaningAndDefinition } from './WordDefinition';
-import { VolumeButton } from './VolumeButton.jsx';
+import { AudioComponent } from './AudioComponent.jsx';
 import { useVocaStore } from '../store/vocaStore';
 import { usePageStore } from '../store/pageStore.jsx';
-import {
-  WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton
-} from '../styles/Word.styles.jsx'
 
 export function Word({ word }) {  
   const { changePage } = usePageStore();
@@ -25,10 +23,6 @@ export function Word({ word }) {
     changePage();
   };
 
-  const playSound = (url)=>{
-    new Audio(url).play();
-  };
-
   return (
     <WordWrapper>
       {/* 단어 이름, 발음 기호 */}
@@ -36,9 +30,7 @@ export function Word({ word }) {
         <WordNameAndNoun>
           <WordName>
             <span>{ word.word }</span>
-            { word.phonetics[0]?.audio && (
-              <VolumeButton onClick={() => playSound(word.phonetics[0].audio)} />
-            )}
+            <AudioComponent phonetics={ word.phonetics }/>
           </WordName>
           <WordNoun>{ word.phonetic }</WordNoun>
         </WordNameAndNoun>

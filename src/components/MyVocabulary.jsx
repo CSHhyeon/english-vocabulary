@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { WordNameWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton, SpeechWrapper, ExampleText } from '../styles/Word.styles.jsx';
-import { VolumeButton } from './VolumeButton.jsx';
+import { AudioComponent } from './AudioComponent.jsx';
 import { useVocaStore } from '../store/vocaStore';
 
 export function MyVocabulary() {
@@ -21,10 +21,6 @@ function NoVoca() {
 function VocaList() {
   const { myVoca, removeWord } = useVocaStore();
 
-  const playSound = (url)=>{
-    new Audio(url).play();
-  };
-
   return(
     <VocaListWrapper>
       {
@@ -34,10 +30,8 @@ function VocaList() {
               <WordNameWrapper>
                 <WordNameAndNoun>
                   <WordName>
-                  <span>{ word.word }</span>
-                  { word.phonetics[0]?.audio && (
-                    <VolumeButton onClick={() => playSound(word.phonetics[0].audio)} />
-                  )}
+                    <span>{ word.word }</span>
+                    <AudioComponent phonetics={ word.phonetics }/>
                   </WordName>
                   <WordNoun>{ word.phonetic }</WordNoun>
                 </WordNameAndNoun>
