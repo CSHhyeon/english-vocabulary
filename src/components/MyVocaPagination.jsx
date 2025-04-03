@@ -13,7 +13,7 @@ export function MyVocaPagination() {
 
    // 현재 보여줄 페이지 번호 리스트 (5개)
   const pageList = useMemo(() => {
-    return Array.from({ length: cnt }, (_, i) => {
+    return Array.from({ length: 5 }, (_, i) => {
       const num = showPage * cnt + (i + 1);
       return num <= totalPage ? num : null;
     }).filter(Boolean); // null 제거
