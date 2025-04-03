@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { WordNameWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper, ActionButton, SpeechWrapper, ExampleText } from '../styles/Word.styles.jsx';
+import { MyVocaPagination } from './MyVocaPagination.jsx';
 import { AudioComponent } from './AudioComponent.jsx';
 import { useVocaStore } from '../store/vocaStore';
 
@@ -53,6 +54,7 @@ function VocaList() {
           )
         })
       }
+      <MyVocaPagination/>
     </VocaListWrapper>
   );
 }

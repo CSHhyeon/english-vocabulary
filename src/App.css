@@ -20,3 +20,17 @@ html, body {
   margin-right: 15px;
   cursor: pointer;
 }
+
+.custom-pagination .page-link {
+  color: black; /* 기본 글자색 */
+}
+
+.custom-pagination .page-item.active .page-link {
+  background-color: #0A0A0A; /* 눈에 잘 띄는 노란 계열 */
+  border-color: #0A0A0A;
+  color: white; /* active 상태 글자색 */
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  color: #ccc; /* 비활성화된 항목 색상 */
+}
