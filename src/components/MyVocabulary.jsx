@@ -22,7 +22,7 @@ function NoVoca() {
 
 function VocaList() {
   const { myVoca, removeWord } = useVocaStore();
-  const { currentPage, setTotalPage } = usePageStore();
+  const { cnt, currentPage, setTotalPage } = usePageStore();
 
   const handleDelete = (voca)=>{
     removeWord(voca);
@@ -32,7 +32,7 @@ function VocaList() {
   return(
     <VocaListWrapper>
       {
-        myVoca.slice(5 *(currentPage - 1), 5 * currentPage).map(function(word, i) {
+        myVoca.slice(cnt *(currentPage - 1), cnt * currentPage).map(function(word, i) {
           return (
             <VocaWrapper key={`${word.word}-${i}`}>
               <WordNameWrapper>

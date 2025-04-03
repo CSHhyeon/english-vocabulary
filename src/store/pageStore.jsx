@@ -7,9 +7,11 @@ export const usePageStore = create(
       totalPage: 1,
       currentPage: 1,
       showPage: 0,
+      cnt: 5,
     
       // totalPage 값 설정
-      setTotalPage: (myVocaLength)=>set({ totalPage: Math.ceil(myVocaLength / 5) }),
+      setTotalPage: (myVocaLength)=>set((state) => 
+        ({ totalPage: Math.ceil(myVocaLength / state.cnt) })),
     
       // currentPage 값 설정
       setCurrentPage: (currPage)=>set({ currentPage: currPage }),
