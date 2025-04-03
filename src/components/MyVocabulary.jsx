@@ -3,6 +3,7 @@ import { WordNameWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWra
 import { MyVocaPagination } from './MyVocaPagination.jsx';
 import { AudioComponent } from './AudioComponent.jsx';
 import { useVocaStore } from '../store/vocaStore';
+import { usePageStore } from '../store/pageStore.jsx';
 
 export function MyVocabulary() {
   const { myVoca } = useVocaStore();
@@ -21,11 +22,17 @@ function NoVoca() {
 
 function VocaList() {
   const { myVoca, removeWord } = useVocaStore();
+  const { currentPage, setTotalPage } = usePageStore();
+
+  const handleDelete = (voca)=>{
+    removeWord(voca);
+    setTotalPage(myVoca.length);
+  }
 
   return(
     <VocaListWrapper>
       {
-        myVoca.map(function(word, i) {
+        myVoca.slice(5 *(currentPage - 1), 5 * currentPage).map(function(word, i) {
           return (
             <VocaWrapper key={`${word.word}-${i}`}>
               <WordNameWrapper>
@@ -36,7 +43,7 @@ function VocaList() {
                   </WordName>
                   <WordNoun>{ word.phonetic }</WordNoun>
                 </WordNameAndNoun>
-                <ActionButton $danger onClick={ ()=>removeWord(word.word) }>
+                <ActionButton $danger onClick={ ()=>handleDelete(word.word) }>
                   <i className="fas fa-trash"></i>
                 </ActionButton>
               </WordNameWrapper>
