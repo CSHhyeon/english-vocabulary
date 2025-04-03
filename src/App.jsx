@@ -2,12 +2,12 @@ import { TitleWrapper, TabWrapper, SectionWrapper, TabButton } from './styles/He
 import { MyVocabulary } from './components/MyVocabulary'
 import { SearchWords } from './components/SearchWords'
 import { useVocaStore } from './store/vocaStore'
-import { usePageStore } from './store/pageStore'
+import { useTabStore } from './store/tabStore'
 import { useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const { page, setPage, changePage } = usePageStore();
+  const { tab, setTab, changeTab } = useTabStore();
   const { myVoca } = useVocaStore();
 
   // Tab 키 전환 기능
@@ -15,7 +15,7 @@ function App() {
     const handleTabKey = (e)=>{
       if (e.key !== 'Tab') return;
       e.preventDefault();
-      changePage();
+      changeTab();
     }
 
     // window에 걸어야 어디에서든 키 입력 감지할 수 있다고 함
@@ -31,13 +31,13 @@ function App() {
     <>
       <TitleWrapper>English Vocabulary Notebook</TitleWrapper>
       <TabWrapper>
-        <TabButton $active={page === 0} onClick={ ()=>{ setPage(0) }}>Search Words</TabButton>
-        <TabButton $active={page === 1} onClick={ ()=>{ setPage(1) }}>My Vocabulary ({myVoca.length})</TabButton>
+        <TabButton $active={tab === 0} onClick={ ()=>{ setTab(0) }}>Search Words</TabButton>
+        <TabButton $active={tab === 1} onClick={ ()=>{ setTab(1) }}>My Vocabulary ({myVoca.length})</TabButton>
       </TabWrapper>
 
       <SectionWrapper>
         {
-          page === 0 ? <SearchWords/> : <MyVocabulary/>
+          tab === 0 ? <SearchWords/> : <MyVocabulary/>
         }
       </SectionWrapper>
     </>

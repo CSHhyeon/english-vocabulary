@@ -77,7 +77,7 @@ const SearchWrapper = styled.form`
 
 const SearchInput = styled.input`
   flex: 1;
-  height: 20px;
+  height: 40px;
   padding: 8px 12px;
   border: 1px solid #E5E5E5;
   border-radius: 6px;

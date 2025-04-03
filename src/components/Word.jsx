@@ -4,10 +4,10 @@ import { WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper
 import { WordMeaningAndDefinition } from './WordDefinition';
 import { AudioComponent } from './AudioComponent.jsx';
 import { useVocaStore } from '../store/vocaStore';
-import { usePageStore } from '../store/pageStore.jsx';
+import { useTabStore } from '../store/tabStore.jsx';
 
 export function Word({ word }) {  
-  const { changePage } = usePageStore();
+  const { changeTab } = useTabStore();
   const { myVoca, addWord } = useVocaStore();
 
   const addToVocabulary = async (word)=>{
@@ -20,7 +20,7 @@ export function Word({ word }) {
     addWord({...word, addedTime});
 
     // 단어장으로 페이지 변경
-    changePage();
+    changeTab();
   };
 
   return (
