@@ -21,6 +21,9 @@ export const usePageStore = create(
       // currentPage 값 설정
       setCurrentPage: (currPage)=>set({ currentPage: currPage }),
 
+      // showPage 값 설정
+      setShowPage: (page)=>set({ showPage: page }),
+
       // 보여줄 페이지들 값 설정
       increaseShowPage: () => set((state) => ({ showPage: state.showPage + 1 })),
       decreaseShowPage: () => set((state) => ({ showPage: state.showPage - 1 })),
@@ -36,6 +39,7 @@ export const updatePageAfterAdd = (myVocaLength) => {
   const pageStore = usePageStore.getState();
   pageStore.setTotalPage(myVocaLength);
   pageStore.setCurrentPage(1);
+  pageStore.setShowPage(0);
 };
 
 // 단어 제거한 경우
@@ -47,7 +51,7 @@ export const updatePageAfterDelete = (myVocaLength) => {
   if (pageStore.currentPage > totalPage) {
     pageStore.setCurrentPage(totalPage);
 
-    if (totalPage < (pageStore.showPage * pageStore.vocaPerPage) + 1) {
+    if (totalPage < (pageStore.showPage * pageStore.paginationPerPage) + 1) {
       pageStore.decreaseShowPage();
     }
   }
