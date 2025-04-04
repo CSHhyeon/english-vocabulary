@@ -46,5 +46,9 @@ export const updatePageAfterDelete = (myVocaLength) => {
   const totalPage = Math.max(1, Math.ceil(myVocaLength / pageStore.vocaPerPage));
   if (pageStore.currentPage > totalPage) {
     pageStore.setCurrentPage(totalPage);
+
+    if (totalPage < (pageStore.showPage * pageStore.vocaPerPage) + 1) {
+      pageStore.decreaseShowPage();
+    }
   }
 };
