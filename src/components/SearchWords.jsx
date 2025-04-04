@@ -1,28 +1,26 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react'
+import { useLocalStorage } from '../localKey/useLocalStorage';
+import { STORAGE_KEYS } from '../localKey/storageKeys';
 import { Word } from './Word';
 
 // 단어 검색 페이지 컴포넌트
 export function SearchWords() {
 
+  const { save, load } = useLocalStorage();
+
   const [loading, setLoading] = useState(false);
-  const [inputWord, setInputWord] = useState(()=>{
-    const saved = localStorage.getItem('inputWord');
-    return saved ? JSON.parse(saved) : '';
-  });
-  const [searchedWord, setSearchedWord] = useState(()=>{
-    const saved = localStorage.getItem('searchedWord');
-    return saved ? JSON.parse(saved) : '';
-  });
+  const [inputWord, setInputWord] = useState(()=> load(STORAGE_KEYS.INPUT_WORD));
+  const [searchedWord, setSearchedWord] = useState(()=> load(STORAGE_KEYS.SEARCHED_WORD));
 
   // save to localStorage
   useEffect(()=>{
-    localStorage.setItem('inputWord', JSON.stringify(inputWord));
-  }, [inputWord]);
+    save(STORAGE_KEYS.INPUT_WORD, inputWord);
+  }, [inputWord, save]);
 
   useEffect(()=>{
-    localStorage.setItem('searchedWord', JSON.stringify(searchedWord));
-  }, [searchedWord]);
+    save(STORAGE_KEYS.SEARCHED_WORD, searchedWord);
+  }, [searchedWord, save]);
 
   // 단어 검색(API 호출)
   const searchWord = async () => {
