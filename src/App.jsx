@@ -18,12 +18,11 @@ function App() {
       changeTab();
     }
 
-    // window에 걸어야 어디에서든 키 입력 감지할 수 있다고 함
-    window.addEventListener('keydown', handleTabKey);
+    document.addEventListener('keydown', handleTabKey);
 
     // cleanup
     return () => {
-      window.removeEventListener('keydown', handleTabKey);
+      document.removeEventListener('keydown', handleTabKey);
     };
   }, []);
 
