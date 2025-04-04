@@ -10,6 +10,7 @@ export function MyVocabulary() {
   return myVoca.length === 0 ? <NoVoca/> : <VocaList/>;
 }
 
+// 단어 아무것도 없을 때 보여줄 컴포넌트
 function NoVoca() {
   return(
     <NoVocaWrapper>
@@ -20,6 +21,7 @@ function NoVoca() {
   );
 }
 
+// 단어 1개라도 있을 때 보여줄 컴포넌트
 function VocaList() {
   const { myVoca, removeWord } = useVocaStore();
   const { vocaPerPage, currentPage } = usePageStore();

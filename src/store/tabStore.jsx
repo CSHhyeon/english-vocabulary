@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+// Search Words와 My Vocabulary 페이지 이동을 위한 전역 state
 export const useTabStore = create((set)=>({
   tab: 0,
 

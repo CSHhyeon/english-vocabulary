@@ -1,7 +1,8 @@
-import { create } from "zustand";  // 전역 state를 만들기 위함
+import { create } from "zustand";  // 전역 state를 만들기 위함 (redux 사용하지 않기 위해서 zustand 사용함)
 import { persist } from "zustand/middleware";  // localStorage에 저장하기 위함! 이거 안 쓰면 App.jsx에서 useEffect 구현 필요
 import { updatePageAfterAdd, updatePageAfterDelete } from "./pageStore";
 
+// 단어를 저장하기 위한 전역 state
 // persist 사용할 경우
 export const useVocaStore = create(
   persist(

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// 볼륨 버튼
 export function AudioComponent({ phonetics }) {
   const playable = phonetics.find(p => p.audio);
 

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react'
 import { Word } from './Word';
 
+// 단어 검색 페이지 컴포넌트
 export function SearchWords() {
 
   const [loading, setLoading] = useState(false);
