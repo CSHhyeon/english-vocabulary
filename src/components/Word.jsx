@@ -4,13 +4,11 @@ import { WordWrapper, WordNameAndNoun, WordName, WordNoun, WordDefinitionWrapper
 import { WordMeaningAndDefinition } from './WordDefinition';
 import { AudioComponent } from './AudioComponent.jsx';
 import { useVocaStore } from '../store/vocaStore';
-import { usePageStore } from '../store/pageStore.jsx';
 import { useTabStore } from '../store/tabStore.jsx';
 
 export function Word({ word }) {  
   const { changeTab } = useTabStore();
   const { myVoca, addWord } = useVocaStore();
-  const { setTotalPage } = usePageStore();
 
   const addToVocabulary = async (word)=>{
     if(myVoca.some(voca => voca.word === word.word)) return alert('이미 저장된 단어입니다.');
@@ -20,7 +18,6 @@ export function Word({ word }) {
 
     // 단어 추가
     addWord({...word, addedTime});
-    setTotalPage(myVoca.length);
 
     // 단어장으로 페이지 변경
     changeTab();

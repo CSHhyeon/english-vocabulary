@@ -22,17 +22,12 @@ function NoVoca() {
 
 function VocaList() {
   const { myVoca, removeWord } = useVocaStore();
-  const { cnt, currentPage, setTotalPage } = usePageStore();
-
-  const handleDelete = (voca)=>{
-    removeWord(voca);
-    setTotalPage(myVoca.length);
-  }
+  const { vocaPerPage, currentPage } = usePageStore();
 
   return(
     <VocaListWrapper>
       {
-        myVoca.slice(cnt *(currentPage - 1), cnt * currentPage).map(function(word, i) {
+        myVoca.slice(vocaPerPage *(currentPage - 1), vocaPerPage * currentPage).map(function(word, i) {
           return (
             <VocaWrapper key={`${word.word}-${i}`}>
               <WordNameWrapper>
@@ -43,7 +38,7 @@ function VocaList() {
                   </WordName>
                   <WordNoun>{ word.phonetic }</WordNoun>
                 </WordNameAndNoun>
-                <ActionButton $danger onClick={ ()=>handleDelete(word.word) }>
+                <ActionButton $danger onClick={ ()=>{ removeWord(word.word) }}>
                   <i className="fas fa-trash"></i>
                 </ActionButton>
               </WordNameWrapper>

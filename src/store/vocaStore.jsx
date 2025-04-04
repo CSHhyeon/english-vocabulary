@@ -1,23 +1,26 @@
 import { create } from "zustand";  // 전역 state를 만들기 위함
 import { persist } from "zustand/middleware";  // localStorage에 저장하기 위함! 이거 안 쓰면 App.jsx에서 useEffect 구현 필요
+import { updatePageAfterAdd, updatePageAfterDelete } from "./pageStore";
 
 // persist 사용할 경우
 export const useVocaStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       myVoca: [],
 
       // 단어 추가
-      addWord: (word)=>
-        set((state)=>({ myVoca: [word, ...state.myVoca] })),
+      addWord: (word) => {
+        const newVoca = [word, ...get().myVoca];
+        set({ myVoca: newVoca });
+        updatePageAfterAdd(newVoca.length);
+      },
 
       // 단어 삭제
-      removeWord: (word)=>
-        set((state)=>({ myVoca: state.myVoca.filter((voca)=>voca.word !== word) })),
-
-      // 단어장 대체
-      setVocaList: (newVoca)=>
-        set({ myVoca: newVoca }),
+      removeWord: (word)=> {
+        const newVoca = get().myVoca.filter((voca)=>voca.word !== word);
+        set({ myVoca: newVoca });
+        updatePageAfterDelete(newVoca.length);
+      },
     }),
     {
       name: 'myVocabulary',  // localStorage Key 이름,
