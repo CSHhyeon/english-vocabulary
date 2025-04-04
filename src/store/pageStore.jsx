@@ -25,8 +25,28 @@ export const usePageStore = create(
       setShowPage: (page)=>set({ showPage: page }),
 
       // 보여줄 페이지들 값 설정
-      increaseShowPage: () => set((state) => ({ showPage: state.showPage + 1 })),
-      decreaseShowPage: () => set((state) => ({ showPage: state.showPage - 1 })),
+      increaseShowPage: () => {
+        set((state) => {
+          const newShowPage = state.showPage + 1;
+          const newCurrentPage = newShowPage * state.paginationPerPage + 1;
+          return {
+            currentPage: newCurrentPage,
+            showPage: newShowPage,
+          };
+        });
+      },
+
+      decreaseShowPage: () => {
+        set((state) => {
+          const newShowPage = state.showPage - 1;
+          const newCurrentPage = (newShowPage + 1) * state.paginationPerPage;
+          return {
+            currentPage: newCurrentPage,
+            showPage: newShowPage,
+          };
+        });
+      },
+      
   }),
   {
     name: 'vocaPage',
